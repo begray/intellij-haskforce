@@ -153,6 +153,17 @@ public class GhcMod {
             return null;
         }
         String file = scanner.next();
+        // handle ghc-modi notifications
+        // e.g.when working with yesod
+        // info: loadTargets: Switching to LinkInMemory/HscInterpreted (memory hungry)
+        if (file.equals("info")) {
+            final String notification = "no-file-ghc-modi-notification";
+            if (!scanner.hasNext())
+                return new Problem(notification, 1, 1, "");
+            else
+                return new Problem(notification, 1, 1, scanner.next());
+        }
+
         if (!scanner.hasNext()) {
             return null;
         }
